@@ -141,6 +141,13 @@ describe('White pawn', function () {
 
       assert.equal(output, oracle);
     });
+
+    it('should not be able to move forward 3 ranks from a non-initial position', function () {
+      const output = pawn.canMove(pawn.rank + 3, pawn.file),
+        oracle = false;
+
+      assert.equal(output, oracle);
+    });
   });
 });
 
@@ -168,5 +175,34 @@ describe('Black pawn', function () {
     /*
      * À compléter
      */
+
+    it('should be able to move forward 2 rank (decreasing)', function () {
+      const output = pawn.canMove(pawn.rank - 2, pawn.file),
+        oracle = true;
+
+      assert.equal(output, oracle);
+    });
+
+  });
+
+  describe('#canMove() from a non-initial position', function () {
+    let chessboard, pawn;
+
+    beforeEach(function () {
+      chessboard = new Chessboard();
+      pawn = new Pawn({
+        chessboard: chessboard,
+        color: Color.BLACK,
+        rank: 7,
+        file: 3
+      });
+    });
+
+    it('should not be able to move backward 1 rank (decreasing)', function () {
+      const output = pawn.canMove(pawn.rank + 1, pawn.file),
+        oracle = false;
+
+      assert.equal(output, oracle);
+    });
   });
 });
